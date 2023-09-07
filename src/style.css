@@ -35,3 +35,126 @@
   color: aliceblue;
   border: 0;
 }
+
+.link {
+  background-color: #1e2229;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: aliceblue;
+  border: 0;
+}
+
+/* Login/Register Styling */
+#account-form {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 25px 10px;
+}
+
+#account-form h1 {
+  text-align: center;
+}
+
+#account-form label {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+#account-form input {
+  display: block;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+#account-form button {
+  display: block;
+  font-size: 1rem;
+  padding: 3px 8px;
+  margin: 25px auto 0;
+}
+
+.products-container {
+  margin: 50px auto;
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.267);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  padding: 100px;
+}
+
+.product {
+  height: 450px;
+  width: 250px;
+  margin: 20px auto;
+  padding: 15px;
+  display: flex;
+  flex-flow: column;
+  box-shadow: 0 6px 20px rgba(56, 126, 255, 0.282);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.product-image {
+  display: block;
+  margin: 10px 0;
+  height: 225px;
+  width: 100%;
+  border-radius: 15px;
+}
+
+.product-info {
+  color: #252e48;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  word-spacing: 2px;
+}
+.add-btn {
+  padding: 4px 6px;
+}
+
+.product-actions {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+}
+
+.searchbar {
+  margin: 0 5px;
+}
+
+.product-categories {
+  margin: 0 5px;
+}
+
+.category-btn {
+  margin: 0 2px;
+  padding: 2.5px 8px;
+  color: aliceblue;
+  background-color: rgb(78, 104, 255);
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+/***************Cart***************/
+
+.item-image {
+  width: 120px;
+  height: 120px;
+}
