@@ -154,7 +154,41 @@
 
 /***************Cart***************/
 
+.cart-page {
+  margin: 20px auto;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.267);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  padding: 0 100px 100px;
+}
+
+.item {
+  display: flex;
+  padding: 30px 0;
+}
+
+.item h2 {
+  width: 40%;
+  margin: auto 100px;
+}
+
+.item p {
+  width: 10%;
+  margin: auto 20px;
+}
+
 .item-image {
   width: 120px;
   height: 120px;
+  margin: 10px 50px;
+}
+
+.cart-status h1 {
+  text-align: center;
+  padding: 100px 0 0;
 }
