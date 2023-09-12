@@ -27,8 +27,15 @@ const ProductItem = ({ product, token, setCart }) => {
       }
       return [
         ...cart,
+        // What was:
+        // {
+        //   ...producttoadd,
+        //   quantity: 1,
+        // }
+
+        // Current:
         {
-          ...producttoadd,
+          productId: producttoadd.id,
           quantity: 1,
         },
       ];

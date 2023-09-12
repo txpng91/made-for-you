@@ -21,8 +21,6 @@ function App() {
   const [userData, setUserData] = useState({});
   const [cart, setCart] = useState([]);
 
-  console.log(`cart`, cart);
-
   // Store JSON web token into local storage
   useEffect(() => {
     if (token) {
@@ -72,8 +70,6 @@ function App() {
     setPassedUsername(null);
     navigate('/');
   };
-
-  console.log(cart);
 
   return (
     <div id='app'>

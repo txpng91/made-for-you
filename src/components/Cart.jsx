@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 function Cart({ products, cart }) {
   const [subtotal, setSubtotal] = useState(0);
-
-  //const ids = cart.map((cart) => cart.productId);
-
   function getCartTotal() {
     return cart.reduce((total, item) => {
       const product = products.find((product) => product.id === item.productId);
