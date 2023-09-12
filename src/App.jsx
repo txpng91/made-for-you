@@ -9,17 +9,19 @@ import Cart from './components/Cart';
 import './style.css';
 
 function App() {
+  const navigate = useNavigate();
   // Passed data variables
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
   const [token, setToken] = useState(
     window.localStorage.getItem('token') || null
   );
   const [passedUsername, setPassedUsername] = useState(
     window.localStorage.getItem('passedUsername' || null)
   );
-  const [userData, setUserData] = useState(null);
-  const [cart, setCart] = useState(null);
+  const [userData, setUserData] = useState({});
+  const [cart, setCart] = useState([]);
+
+  console.log(`cart`, cart);
 
   // Store JSON web token into local storage
   useEffect(() => {
@@ -50,7 +52,7 @@ function App() {
 
   // Fetch user data and cart by username
   useEffect(() => {
-    if (passedUsername) {
+    if (token) {
       const fetchUserDataandCart = async () => {
         const user = await getUsers(passedUsername);
         const usersCart = await getUsersCart(user.id);
@@ -71,6 +73,8 @@ function App() {
     navigate('/');
   };
 
+  console.log(cart);
+
   return (
     <div id='app'>
       <div id='navbar'>
@@ -82,8 +86,7 @@ function App() {
         {token ? (
           <>
             <Link to={'/cart'}>
-              Cart{' '}
-              {cart?.products?.length && <span>{cart?.products?.length}</span>}
+              Cart {cart?.length && <span>{cart?.length}</span>}
             </Link>
             <Link>
               <button className='link' onClick={logOut}>
@@ -118,6 +121,8 @@ function App() {
             <Products
               setProducts={setProducts}
               products={products}
+              cart={cart}
+              setCart={setCart}
               setToken={setToken}
               token={token}
             />

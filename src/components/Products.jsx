@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProductItem from './ProductItem';
 
-const Products = ({ products, token }) => {
+const Products = ({ products, token, setCart, cart }) => {
   const [searchParams, setsearchParams] = useState('');
   const [filter, setFilter] = useState('');
 
@@ -64,7 +64,13 @@ const Products = ({ products, token }) => {
       <div className='products-container'>
         {displayProducts.map((product) => {
           return (
-            <ProductItem key={product.id} product={product} token={token} />
+            <ProductItem
+              key={product.id}
+              setCart={setCart}
+              cart={cart}
+              product={product}
+              token={token}
+            />
           );
         })}
       </div>

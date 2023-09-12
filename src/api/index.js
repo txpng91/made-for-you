@@ -80,7 +80,8 @@ export const getUsersCart = async (id) => {
     const res = await fetch(`https://fakestoreapi.com/carts`);
     const carts = await res.json();
     const cart = carts.find((usersCart) => usersCart.userId === id);
-    return cart;
+
+    return cart.products;
   } catch (error) {
     console.error(`Unable to get the user's cart.`, error);
   }
