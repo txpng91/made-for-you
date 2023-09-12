@@ -4,8 +4,6 @@ const ProductItem = ({ product, token, setCart }) => {
   // Handler to add an item inside products of a cart
   const handleClick = (producttoadd) => {
     setCart((cart) => {
-      // Create a copy of the state to avoid mutating it direct
-
       /*
        If there's an existing item in the cart,
        then find the index of the item in the array of object state
@@ -25,11 +23,11 @@ const ProductItem = ({ product, token, setCart }) => {
             : item;
         });
       }
-      // If the there not an existing id for the cart, add to the cart...
+      // If the there not an existing id for the cart, add a new item to the cart...
       return [
-        // spreaded cart
+        // spread the the current cart
         ...cart,
-        // with new item
+        // add new item
         {
           productId: producttoadd.id,
           quantity: 1,
@@ -47,7 +45,7 @@ const ProductItem = ({ product, token, setCart }) => {
           alt={product.title}
         />
         <h3>{product.title}</h3>
-        <p>${product.price}</p>
+        <p>${product.price.toFixed(2)}</p>
         <p>Rating {product.rating.rate}</p>
       </div>
       {token && (
