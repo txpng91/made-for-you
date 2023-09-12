@@ -25,15 +25,11 @@ const ProductItem = ({ product, token, setCart }) => {
             : item;
         });
       }
+      // If the there not an existing id for the cart, add to the cart...
       return [
+        // spreaded cart
         ...cart,
-        // What was:
-        // {
-        //   ...producttoadd,
-        //   quantity: 1,
-        // }
-
-        // Current:
+        // with new item
         {
           productId: producttoadd.id,
           quantity: 1,
