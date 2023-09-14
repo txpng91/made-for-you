@@ -56,6 +56,18 @@ export async function getAllProducts(token) {
   }
 }
 
+// Fatch a product from products
+
+export async function getAProduct(id) {
+  try {
+    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const product = await res.json();
+    return product;
+  } catch (error) {
+    console.error(`Unable to fetch product!`, error);
+  }
+}
+
 /**************Users**************/
 
 // Get all users
