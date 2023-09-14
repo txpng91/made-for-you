@@ -63,20 +63,37 @@ function App() {
     }
   }, [passedUsername]);
 
+  // Function to get quantity for all items
+  function allQuantity() {
+    return cart.reduce((quantitySum, item) => {
+      const product = products.find((product) => product.id === item.productId);
+      if (product) {
+        return quantitySum + item.quantity;
+      }
+      return quantitySum;
+    }, 0);
+  }
+
+  // Manage the side effect with quantity
+  useEffect(() => {
+    const quantitySum = allQuantity();
+    setQuantity(quantitySum); // Return quantity all listed items to products
+  }, [cart, products]);
+
   // Removing data to log out
   const logOut = (e) => {
     e.preventDefault();
     setToken(null);
-    setUserData(null);
-    setCart(null);
-    setPassedUsername(null);
+    setUserData({});
+    setCart([]);
+    setPassedUsername(0);
     navigate('/');
   };
 
   return (
     <div id='app'>
       <div id='navbar'>
-        {userData ? (
+        {token ? (
           <span className='icon-name'>Hello, {userData?.name?.firstname}!</span>
         ) : (
           <span className='icon-name'>Made For You</span>
