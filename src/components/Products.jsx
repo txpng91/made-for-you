@@ -4,6 +4,7 @@ import ProductItem from './ProductItem';
 const Products = ({ products, token, setCart, cart, setQuantity }) => {
   const [searchParams, setsearchParams] = useState('');
   const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('');
 
   // Conditional rendering array
   const filteredProducts =
@@ -11,7 +12,8 @@ const Products = ({ products, token, setCart, cart, setQuantity }) => {
       products.filter((product) =>
         product.title.toLowerCase().includes(searchParams)
       )) ||
-    (filter && products.filter((filtered) => filtered.category === filter));
+    (filter && products.filter((filtered) => filtered.category === filter)) ||
+    (sort && products.sort((a, b) => a.sort - b.sort));
 
   const displayProducts = filteredProducts ? filteredProducts : products;
 
