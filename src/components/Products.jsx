@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProductItem from './ProductItem';
 
-const Products = ({ products, token, setCart, cart }) => {
+const Products = ({ products, token, setCart, cart, setQuantity }) => {
   const [searchParams, setsearchParams] = useState('');
   const [filter, setFilter] = useState('');
 
@@ -22,6 +22,7 @@ const Products = ({ products, token, setCart, cart }) => {
           <label>
             Search:{' '}
             <input
+              name='searchParams'
               type='text'
               value={searchParams}
               onChange={(e) => {
@@ -70,6 +71,8 @@ const Products = ({ products, token, setCart, cart }) => {
               cart={cart}
               product={product}
               token={token}
+              products={products}
+              setQuantity={setQuantity}
             />
           );
         })}

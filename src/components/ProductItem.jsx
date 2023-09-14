@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-const ProductItem = ({ product, token, setCart }) => {
+const ProductItem = ({
+  token,
+  products,
+  product,
+  cart,
+  setCart,
+  setQuantity,
+}) => {
+  // Function to get quantity for all items
+  function allQuantity() {
+    return cart.reduce((quantitySum, item) => {
+      const product = products.find((product) => product.id === item.productId);
+      if (product) {
+        return quantitySum + item.quantity;
+      }
+      console.log(quantitySum);
+      return quantitySum;
+    }, 0);
+  }
+
+  // Manage the side effect with quantity
+  useEffect(() => {
+    const quantitySum = allQuantity();
+    setQuantity(quantitySum); // Return quantity all listed items to products
+  }, [cart, products]);
+
   // Handler to add an item inside products of a cart
   const handleClick = (producttoadd) => {
     setCart((cart) => {
@@ -38,21 +64,23 @@ const ProductItem = ({ product, token, setCart }) => {
 
   return (
     <div className='product' key={product.id}>
+      <img className='product-image' src={product.image} alt={product.title} />
       <div className='product-info'>
-        <img
-          className='product-image'
-          src={product.image}
-          alt={product.title}
-        />
-        <h3>{product.title}</h3>
+        <h3>{product.title.substring(0, 12)}</h3>
         <p>${product.price.toFixed(2)}</p>
         <p>Rating {product.rating.rate}</p>
       </div>
-      {token && (
-        <button onClick={() => handleClick(product)} className='add-btn'>
-          Add to cart
-        </button>
-      )}
+
+      <div className='product-options'>
+        {token && (
+          <button onClick={() => handleClick(product)} className='add-btn'>
+            Add to Cart
+          </button>
+        )}
+        <Link className='view-link' to={`/products/${product.id}`}>
+          View
+        </Link>
+      </div>
     </div>
   );
 };

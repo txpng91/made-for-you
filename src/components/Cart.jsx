@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function Cart({ products, cart, setCart }) {
+function Cart({ products, cart, setCart, setQuantity }) {
+  // Navigator created
+  const navigate = useNavigate();
+
   // Create cost state for the entire cart
   const [subtotal, setSubtotal] = useState(0);
+
+  // Function to add all prices for the listed items in the cart
   function getCartTotal() {
     return cart.reduce((total, item) => {
       const product = products.find((product) => product.id === item.productId);
@@ -19,7 +25,24 @@ function Cart({ products, cart, setCart }) {
     setSubtotal(total);
   }, [cart, products]);
 
-  // Filter the products with
+  // Function to get quantity for all items
+  function allQuantity() {
+    return cart.reduce((quantitySum, item) => {
+      const product = products.find((product) => product.id === item.productId);
+      if (product) {
+        return quantitySum + item.quantity;
+      }
+      return quantitySum;
+    }, 0);
+  }
+
+  // Manage the side effect with quantity
+  useEffect(() => {
+    const quantitySum = allQuantity();
+    setQuantity(quantitySum); // Return quantity all listed items to the app
+  }, [cart, products]);
+
+  // Filter the products with the listed items in the cart
   const getAllItemDetails = (item) => {
     return products.find((product) => product.id === item.productId);
   };
@@ -57,7 +80,7 @@ function Cart({ products, cart, setCart }) {
       if (existingItem) {
         // If the existing cart item has a quantity of 1
         if (existingItem.quantity === 1) {
-          // Return acrt that filtered the desired item
+          // Return array that filtered the desired item
           return cart.filter(
             (item) => item.productId !== existingItem.productId
           );
@@ -75,6 +98,13 @@ function Cart({ products, cart, setCart }) {
     });
   };
 
+  // Remove item from a cart without quantity condition
+  const removeItem = (id) => {
+    setCart((cart) => {
+      return cart.filter((item) => item.productId !== id);
+    });
+  };
+
   return (
     <div className='cart-page'>
       <div className='cart'>
@@ -89,7 +119,12 @@ function Cart({ products, cart, setCart }) {
                 src={productItem.image}
                 alt={productItem?.title}
               />
-              <h2 className='cart-values'>{productItem?.title}</h2>
+              <h2
+                className='item-title'
+                onClick={() => navigate(`/products/${item.productId}`)}
+              >
+                {productItem?.title}
+              </h2>
               <p className='cart-values'>${(productItem?.price).toFixed(2)}</p>
               <div className='quantity-section'>
                 <button
@@ -106,6 +141,12 @@ function Cart({ products, cart, setCart }) {
                   +
                 </button>
               </div>
+              <button
+                className='remove-item-btn'
+                onClick={() => removeItem(item.productId)}
+              >
+                Remove
+              </button>
               <p className='cart-values'>
                 ${(productItem?.price * item?.quantity).toFixed(2)}
               </p>

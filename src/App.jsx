@@ -7,6 +7,7 @@ import Profile from './components/Profile';
 import Products from './components/Products';
 import Cart from './components/Cart';
 import './style.css';
+import ViewProduct from './components/ViewProduct';
 
 function App() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ function App() {
   );
   const [userData, setUserData] = useState({});
   const [cart, setCart] = useState([]);
+  const [quantity, setQuantity] = useState(0);
 
   // Store JSON web token into local storage
   useEffect(() => {
@@ -82,13 +84,11 @@ function App() {
         {token ? (
           <>
             <Link to={'/cart'}>
-              Cart {cart?.length && <span>{cart?.length}</span>}
+              Cart {quantity > 0 && <span>{quantity}</span>}
             </Link>
-            <Link>
-              <button className='link' onClick={logOut}>
-                Log Out
-              </button>
-            </Link>
+            <button className='link' onClick={logOut}>
+              Log Out
+            </button>
             <Link to={'/profile'}>Profile</Link>
           </>
         ) : (
@@ -116,6 +116,7 @@ function App() {
           element={
             <Products
               setProducts={setProducts}
+              setQuantity={setQuantity}
               products={products}
               cart={cart}
               setCart={setCart}
@@ -125,8 +126,19 @@ function App() {
           }
         />
         <Route
+          path='/products/:id'
+          element={<ViewProduct products={products} />}
+        />
+        <Route
           path='/cart'
-          element={<Cart products={products} cart={cart} setCart={setCart} />}
+          element={
+            <Cart
+              products={products}
+              cart={cart}
+              setCart={setCart}
+              setQuantity={setQuantity}
+            />
+          }
         />
         <Route
           path='/profile'
