@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getAProduct } from '../api';
 
 function ViewProduct({ products }) {
   const params = useParams();
   const product = products.find(
     (product) => product.id === parseInt(params.id)
   );
+
   const navigate = useNavigate();
+
+  // const [product, setProduct] = useState({});
+
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     const res = await getAProduct(params.id);
+  //     setProduct(res);
+  //   };
+  //   fetchProduct();
+  // }, []);
+
   return (
     <div className='product-view'>
       <div className='details-image-cover'>
