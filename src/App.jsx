@@ -23,6 +23,22 @@ function App() {
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
 
+  // Navbar adjustmenst for mobile settings
+  const [mobile, setMobile] = useState(false);
+  const handleClick = () => setMobile(!mobile);
+  const closeMobileMenu = () => setMobile(false);
+  const Mobile = () => {
+    if (window.innerWidth >= 425) {
+      setMobile(false);
+    } else {
+      setMobile(true);
+    }
+  };
+
+  useEffect(() => {
+    Mobile();
+  }, []);
+
   // Store JSON web token into local storage
   useEffect(() => {
     if (token) {
@@ -87,35 +103,58 @@ function App() {
     setUserData({});
     setCart([]);
     setPassedUsername(0);
+    closeMobileMenu();
     navigate('/');
   };
 
   return (
-    <div id='app'>
+    <>
       <div id='navbar'>
         {token ? (
           <span className='icon-name'>Hello, {userData?.name?.firstname}!</span>
         ) : (
           <span className='icon-name'>Made For You</span>
         )}
-        {token ? (
-          <>
-            <Link to={'/cart'}>
-              Cart {quantity > 0 && <span>{quantity}</span>}
-            </Link>
-            <button className='link' onClick={logOut}>
-              Log Out
-            </button>
-            <Link to={'/profile'}>Profile</Link>
-          </>
-        ) : (
-          <>
-            <Link to={'/account/login'}>Login</Link>
-            <Link to={'/account/sign-up'}>Sign Up</Link>
-          </>
-        )}
-        <Link to={'/products'}>Products</Link>
-        <Link to={'/'}>Home</Link>
+        <div className='menu-icon' onClick={handleClick}>
+          <i className={mobile ? 'fas fa-times' : 'fas fa-bars'} />
+        </div>
+        <div id='links' className={mobile ? 'links-active' : 'links'}>
+          {token ? (
+            <>
+              <button className='link' onClick={logOut}>
+                Log Out
+              </button>
+              <span
+                className='material-symbols-outlined link'
+                onClick={() => {
+                  navigate('/cart');
+                  closeMobileMenu();
+                }}
+              >
+                shopping_bag{' '}
+                {quantity > 0 && <p className='bag-number'>{quantity}</p>}
+              </span>
+              <Link onClick={closeMobileMenu} to={'/profile'}>
+                Profile
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link onClick={closeMobileMenu} to={'/account/login'}>
+                Login
+              </Link>
+              <Link onClick={closeMobileMenu} to={'/account/sign-up'}>
+                Sign Up
+              </Link>
+            </>
+          )}
+          <Link onClick={closeMobileMenu} to={'/products'}>
+            Products
+          </Link>
+          <Link onClick={closeMobileMenu} to={'/'}>
+            Home
+          </Link>
+        </div>
       </div>
       <Routes>
         <Route path={'/'} element={<Home />} />
@@ -162,7 +201,7 @@ function App() {
           element={<Profile setUserData={setUserData} userData={userData} />}
         />
       </Routes>
-    </div>
+    </>
   );
 }
 

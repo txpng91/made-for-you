@@ -1,7 +1,11 @@
+body {
+  margin: 0;
+}
+
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: 'IBM Plex Mono', monospace;
   font-family: 'IBM Plex Sans', sans-serif;
   font-family: 'IBM Plex Serif', serif;
@@ -12,19 +16,28 @@
 }
 
 #navbar {
-  padding: 2.5em;
-  justify-content: space-evenly;
+  font-size: 1.5rem;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
   background-color: #1e2229;
+  background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 #navbar a {
+  background-color: #1e2229;
   float: right;
   font-size: 1.5rem;
-  padding: 25px 25px;
-  margin-top: -40px;
+  padding: 26px 25px;
+  margin: 0 2px;
   text-decoration: none;
   color: aliceblue;
-  transition: all 0.2s linear;
+  border: 0;
+  transition: all 0.1s linear;
 }
 
 #navbar a:hover {
@@ -33,31 +46,57 @@
 }
 
 .icon-name {
+  color: aliceblue;
   float: left;
-  background-color: #1e2229;
   font-size: 1.5rem;
-  margin-top: -15px;
   font-weight: 600;
   text-decoration: none;
   color: aliceblue;
   border: 0;
+}
+
+.links {
+  float: right;
+  grid-gap: 10px;
+  list-style: none;
+  text-align: center;
+  width: 75vw;
+  justify-content: end;
 }
 
 .link {
   background-color: #1e2229;
   float: right;
-  margin-top: -40px;
   font-size: 1.5rem;
-  padding: 25px 25px;
+  padding: 26px 25px;
   text-decoration: none;
   color: aliceblue;
   border: 0;
   transition: all 0.1s linear;
 }
-
 .link:hover {
   font-weight: 600;
   box-shadow: 0 0 10px aliceblue;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  align-items: center;
+  margin: 1px 8px 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.material-symbols-outlined:hover {
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+}
+
+.bag-number {
+  margin-top: 2px;
+}
+
+.menu-icon {
+  display: none;
 }
 
 /* Login/Register Styling */
@@ -79,13 +118,14 @@
   display: block;
   text-align: center;
   margin: 10px 0;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 #account-form input {
   display: block;
   margin: 0 auto;
   font-size: 1rem;
+  text-indent: 5px;
 }
 
 #account-form button {
@@ -94,6 +134,8 @@
   padding: 3px 8px;
   margin: 25px auto 0;
 }
+
+/* **************Profile************** */
 
 /* **************Products************** */
 
@@ -196,7 +238,7 @@
 .add-btn {
   padding: 8px 12px;
   max-width: calc((100%) - 60px);
-  font-size: 15px;
+  font-size: 1rem;
   border: none;
   color: #fff;
   background-color: #1f98f4;
@@ -212,8 +254,8 @@
 
 .view-link {
   text-decoration: none;
-  font-size: 1.1rem;
-  padding: 6px 12px;
+  font-size: 1rem;
+  padding: 8px 12px;
   bottom: 5px;
   background-color: #01b90e;
   border-radius: 10px;
@@ -238,12 +280,13 @@
   width: 40%;
 }
 .details-image {
-  margin-top: 70px;
+  margin-top: 25px;
   height: 400px;
   width: 380px;
 }
 
 .product-details {
+  margin-top: 10px;
   padding: 20px;
   width: 50%;
 }
@@ -424,4 +467,153 @@
   font-weight: 600;
   font-size: 1.3rem;
   box-shadow: 3px 3px 5px crimson;
+}
+
+@media screen and (max-width: 426px) {
+  #navbar {
+    height: 50px;
+    width: 100%;
+    font-size: 1.3rem;
+    padding: 0em 3em;
+    color: aliceblue;
+    background-color: rgb(32, 35, 48);
+  }
+
+  .icon-name {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: aliceblue;
+    position: absolute;
+    margin-top: -20px;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 20%);
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: block;
+  }
+
+  .material-symbols-outlined {
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 50px;
+    left: -100%;
+    transition: all 0.5s ease;
+    background-color: rgb(32, 35, 48);
+  }
+
+  .links-active {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 50px;
+    left: 0%;
+    transition: all 0.5s ease;
+    background-color: rgb(32, 35, 48);
+  }
+
+  #navbar a {
+    color: aliceblue;
+    text-decoration: none;
+    padding: 1em;
+    letter-spacing: 1px;
+    z-index: 1;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+    text-align: center;
+  }
+
+  /* Products */
+  .searchbar label {
+    font-size: 1rem;
+    margin: 0 10px;
+  }
+
+  .searchbar input {
+    font-size: 0.8rem;
+    margin: 0 10px;
+    text-indent: 5px;
+  }
+
+  .products-container {
+    padding: 10px 20px;
+    margin: 10px auto;
+  }
+
+  .category-btn {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+
+  .product {
+    height: 220px;
+    width: 130px;
+    padding: 15px;
+  }
+
+  .product-actions {
+    margin: 10px 0;
+  }
+
+  .product-info {
+    margin: 5px 0;
+  }
+
+  .product-info h3 {
+    font-size: 12px;
+  }
+
+  .product-info p {
+    font-size: 10px;
+    margin: 1px 0 0;
+  }
+
+  .product-image {
+    margin: 0;
+    height: 100px;
+    width: 100%;
+  }
+
+  .product-options {
+    display: block;
+    margin: 0 auto;
+    height: 10px;
+    width: 125px;
+  }
+
+  .add-btn {
+    padding: 2px 10px;
+    font-size: 0.5rem;
+    border-radius: 5px;
+    margin: 0 3px;
+  }
+
+  .view-link {
+    font-size: 0.5rem;
+    padding: 2px 6px;
+    border-radius: 5px;
+    margin: 0 3px;
+  }
 }
