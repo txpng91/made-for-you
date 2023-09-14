@@ -13,7 +13,6 @@ export const registerUser = async (newUser) => {
       body: JSON.stringify(newUser),
     });
     const result = await res.json();
-    console.log(result);
     return result;
   } catch (error) {
     console.error('Unable to register user for this reason: ', error);

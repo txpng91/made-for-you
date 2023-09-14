@@ -16,7 +16,6 @@ const ProductItem = ({
       if (product) {
         return quantitySum + item.quantity;
       }
-      console.log(quantitySum);
       return quantitySum;
     }, 0);
   }
