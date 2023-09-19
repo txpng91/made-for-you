@@ -10,16 +10,6 @@ function ViewProduct({ products }) {
 
   const navigate = useNavigate();
 
-  // const [product, setProduct] = useState({});
-
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     const res = await getAProduct(params.id);
-  //     setProduct(res);
-  //   };
-  //   fetchProduct();
-  // }, []);
-
   return (
     <div className='product-view'>
       <div className='details-image-cover'>
@@ -33,7 +23,8 @@ function ViewProduct({ products }) {
         <h4 className='details-category'>{product?.category}</h4>
         <h2 className='details-title'>{product?.title}</h2>
         <p className='details-rating'>
-          Rating {product?.rating && product.rating.rate}
+          Rating: <strong>{product?.rating && product.rating.rate}</strong> (
+          {product?.rating.count})
         </p>
         <h3 className='details-price'>$ {(product?.price).toFixed(2)}</h3>
         <p className='details-description'>{product?.description}</p>
