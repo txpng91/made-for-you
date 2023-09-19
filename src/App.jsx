@@ -66,6 +66,8 @@ function App() {
     fetchProducts();
   }, []);
 
+  // Track in the products
+
   // Fetch user data and cart by username
   useEffect(() => {
     if (token) {

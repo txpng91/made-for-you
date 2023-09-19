@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
 import ProductItem from './ProductItem';
 
-const Products = ({ products, token, setCart, cart, setQuantity }) => {
+const Products = ({
+  products,
+  setProducts,
+  token,
+  setCart,
+  cart,
+  setQuantity,
+}) => {
   const [searchParams, setsearchParams] = useState('');
   const [filter, setFilter] = useState('');
-  const [sort, setSort] = useState('');
 
   // Conditional rendering array
   const filteredProducts =
     (searchParams &&
       products.filter((product) =>
-        product.title.toLowerCase().includes(searchParams)
+        product.title.toLowerCase().includes(searchParams.toLowerCase())
       )) ||
-    (filter && products.filter((filtered) => filtered.category === filter)) ||
-    (sort && products.sort((a, b) => a.sort - b.sort));
+    (filter && products.filter((filtered) => filtered.category === filter));
 
   const displayProducts = filteredProducts ? filteredProducts : products;
+
+  const sortProductsByName = () => {
+    const sortByName = products.toSorted((a, b) =>
+      a.title.localeCompare(b.title)
+    );
+    setProducts(sortByName);
+  };
+  const sortProductsByPrice = () => {
+    const sortByPrice = products.toSorted((a, b) => a.price - b.price);
+    setProducts(sortByPrice);
+  };
 
   return (
     <>
@@ -62,6 +78,17 @@ const Products = ({ products, token, setCart, cart, setQuantity }) => {
           >
             Electronics
           </button>
+        </div>
+        <div className='sort-products'>
+          <button className='sort-btn' onClick={() => sortProductsByPrice()}>
+            Sort by Price
+          </button>
+          <button className='sort-btn' onClick={() => sortProductsByName()}>
+            Sort by Name
+          </button>
+          {/* <button className='sort-btn' onClick={() => setProducts(products)}>
+            Default
+          </button> */}
         </div>
       </div>
       <div className='products-container'>
