@@ -160,6 +160,9 @@ function Cart({ products, cart, setCart, setQuantity }) {
             ? 'Your Cart is empty!'
             : `Subtotal: ${subtotal.toFixed(2)}`}
         </h2>
+        <button className='checkout-btn' onClick={() => navigate('/checkout')}>
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );
