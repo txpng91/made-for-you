@@ -8,6 +8,7 @@ import Products from './components/Products';
 import Cart from './components/Cart';
 import './style.css';
 import ViewProduct from './components/ViewProduct';
+import Checkout from './components/Checkout';
 
 function App() {
   const navigate = useNavigate();
@@ -196,6 +197,12 @@ function App() {
               setCart={setCart}
               setQuantity={setQuantity}
             />
+          }
+        />
+        <Route
+          path='/checkout'
+          element={
+            <Checkout products={products} cart={cart} quantity={quantity} />
           }
         />
         <Route
