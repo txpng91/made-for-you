@@ -1,5 +1,7 @@
 # Made For You
 
+Technologies: ReactJS and NodeJS
+
 An E-Commerce Application that'll let browse latest products this brand has to offer.
 
 As a non-member, you can see browse the application, see the latest products and search through a filter bar.
