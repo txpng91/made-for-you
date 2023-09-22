@@ -7,14 +7,19 @@ function Profile({ userData, setUserData }) {
         <h1>Loading ...</h1>
       ) : (
         <div id='profile'>
-          <h2>
+          <h1>
             Hello, {userData?.name?.firstname} {userData?.name?.lastname}!
-          </h2>
+          </h1>
           <div className='profile-info'>
-            <p>Email: {userData?.email}</p>
-            <p>Phone Number: {userData?.phone}</p>
+            <div className='basic-info'>
+              <h2>Basic</h2>
+              <p>First Name: {userData?.name?.firstname}</p>
+              <p>Last Name: {userData?.name?.lastname}</p>
+              <p>Email: {userData?.email}</p>
+              <p>Phone Number: {userData?.phone}</p>
+            </div>
             <div className='address-section'>
-              <h3>Address</h3>
+              <h2>Address</h2>
               <p>
                 {userData?.address?.number} {userData?.address?.street}
               </p>
@@ -23,7 +28,8 @@ function Profile({ userData, setUserData }) {
               </p>
             </div>
           </div>
-          <div className='profile-options'></div>
+
+          {/* <div className='profile-options'></div> */}
         </div>
       )}
     </>
