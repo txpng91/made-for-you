@@ -760,7 +760,7 @@ hr {
     font-size: 1.3rem;
     padding: 0em 3em;
     color: aliceblue;
-    background-color: rgb(32, 35, 48);
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
   }
 
   .icon-name {
@@ -801,7 +801,12 @@ hr {
     top: 50px;
     left: -100%;
     transition: all 0.5s ease;
-    background-color: rgb(32, 35, 48);
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .links button,
+  .links span {
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
   }
 
   .links-active {
@@ -814,19 +819,27 @@ hr {
     top: 50px;
     left: 0%;
     transition: all 0.5s ease;
-    background-color: rgb(32, 35, 48);
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .links-active button,
+  .links-active span,
+  .links-active a {
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
   }
 
   #navbar a {
     color: aliceblue;
     text-decoration: none;
     padding: 1em;
+    margin: 0;
     letter-spacing: 1px;
     z-index: 1;
     overflow: hidden;
     cursor: pointer;
     transition: 0.5s;
     text-align: center;
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
   }
 
   /* ***********Home*********** */
@@ -1097,11 +1110,11 @@ hr {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 75px;
+    padding: 20px 100px;
   }
 
   .cart-values {
-    width: 100%;
+    width: 20%;
     margin: auto;
     text-align: center;
     font-size: 1rem;
