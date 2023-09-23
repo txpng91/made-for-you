@@ -16,7 +16,7 @@ function Profile({ userData, setUserData }) {
               <p>First Name: {userData?.name?.firstname}</p>
               <p>Last Name: {userData?.name?.lastname}</p>
               <p>Email: {userData?.email}</p>
-              <p>Phone Number: {userData?.phone}</p>
+              <p>Phone: {userData?.phone}</p>
             </div>
             <div className='address-section'>
               <h2>Address</h2>

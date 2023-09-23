@@ -248,7 +248,7 @@
 /* **************Products************** */
 
 .product-actions {
-  margin: 50px 0 0;
+  margin: 30px 0 0;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -320,8 +320,8 @@
 }
 
 .product {
-  height: 520px;
-  width: 330px;
+  height: 480px;
+  width: 290px;
   margin: 0 auto;
   padding: 30px;
   display: flex;
@@ -335,7 +335,7 @@
 .product-image {
   display: block;
   margin: 10px 0;
-  height: 300px;
+  height: 250px;
   width: 100%;
   border-radius: 15px;
   transition: all 0.2s linear;
@@ -870,7 +870,53 @@ hr {
     width: 90%;
   }
 
+  /*************** Profile ****************/
+
+  #profile {
+    margin: 50px 0;
+  }
+
+  #profile h1 {
+    font-size: 1.4rem;
+  }
+
+  .profile-info {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 30px 0;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  .basic-info {
+    padding: 10px 0;
+    margin: 0;
+  }
+
+  .address-section {
+    padding: 10px 0;
+    margin: 0;
+  }
+
+  .basic-info h2,
+  .address-section h2 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+
+  .basic-info p,
+  .address-section p {
+    margin: 10px 0;
+    font-size: 0.8rem;
+  }
+
   /*************** Products ****************/
+
+  .searchbar {
+    margin: 10px auto 0;
+  }
+
   .searchbar label {
     font-size: 1rem;
     margin: 0 10px;
@@ -879,7 +925,8 @@ hr {
   .searchbar input {
     font-size: 0.8rem;
     margin: 0 10px;
-    text-indent: 5px;
+    text-indent: 2px;
+    padding: 2px;
   }
 
   .category-btn {
@@ -897,13 +944,14 @@ hr {
   }
 
   .products-container {
-    padding: 10px 20px;
+    padding: 10px 5px;
     margin: 10px auto;
+    gap: 0.5rem;
   }
 
   .product {
     height: 220px;
-    width: 130px;
+    width: 150px;
     padding: 15px 5px;
   }
 
@@ -928,7 +976,7 @@ hr {
   .product-image {
     margin: 0 auto;
     height: 100px;
-    width: 90%;
+    width: 75%;
   }
 
   .product-options {
@@ -1082,5 +1130,112 @@ hr {
 
   .remove-item-btn:hover {
     font-size: 1.1rem;
+  }
+
+  .checkout-btn {
+    font-size: 1rem;
+    margin: 0 auto;
+    width: 55%;
+  }
+
+  /* ******************Checkout***************** */
+
+  .checkout {
+    display: flex;
+    padding: 5px 0;
+    flex-direction: column-reverse;
+  }
+
+  .billing {
+    margin: 0 auto;
+    width: 100%;
+    padding: 30px;
+  }
+
+  .billing h2 {
+    font-size: 1.2rem;
+  }
+
+  .billing label {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+
+  .billing input,
+  select {
+    margin: 6px 0;
+    font-size: 0.8rem;
+    width: 100%;
+    padding: 8px 5px;
+    text-indent: 5px;
+    border: 1px solid #b6b6b8;
+    border-radius: 5px;
+  }
+
+  hr {
+    margin: 10px 0;
+  }
+
+  .scz-div {
+    margin: 0 2px;
+  }
+
+  .form-check input {
+    box-sizing: border-box;
+    width: 15px;
+    height: 15px;
+    margin: auto 20px auto 0px;
+  }
+  .payment-type {
+    margin: 10px 0 20px;
+  }
+
+  .your-cart {
+    margin: 0 auto;
+    width: 100%;
+    padding: 25px;
+  }
+
+  .your-cart-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .your-cart-heading h2 {
+    font-size: 1.2rem;
+    margin-top: 5px;
+  }
+
+  .your-cart-qty {
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+
+  .checkout-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  #checkout-item-title {
+    width: 60%;
+    font-size: 0.8rem;
+  }
+
+  .checkout-item p {
+    width: 13%;
+    font-size: 0.8rem;
+    margin: 0 3px;
+  }
+
+  .total p {
+    font-size: 1rem;
+  }
+
+  .checkout-btn2 {
+    font-size: 1rem;
   }
 }
