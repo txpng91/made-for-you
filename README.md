@@ -4,6 +4,6 @@ Technologies: ReactJS and NodeJS
 
 An E-Commerce Application that'll allow users to browse latest products that this app has to offer.
 
-As a non-member, you can see browse the application, see the latest products and search through a filter bar.
+As a non-member, you can browse the applicatio and view products. You can also filter products, through a search bar or by selecting a category of choice, as well as sorting the products by name or price.
 
-As a member, you can log in and out, have your own profile, add products into a cart, and check out.
+As a member, you can additionally have your own profile, add products into a cart, and check out.
