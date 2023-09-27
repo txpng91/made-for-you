@@ -157,7 +157,7 @@ function Cart({ products, cart, setCart, setQuantity }) {
 
       {!subtotal ? (
         <div className='checkout-section'>
-          <h2 className='cartSubtotal'>'Your Cart is empty!'</h2>
+          <h2 className='cartSubtotal'>Your Cart is empty!</h2>
         </div>
       ) : (
         <div className='checkout-section'>
