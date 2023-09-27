@@ -11,6 +11,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 #navbar {
   font-size: 1.5rem;
   width: 100%;
@@ -69,6 +73,7 @@
   color: aliceblue;
   border: 0;
   transition: all 0.1s linear;
+  cursor: pointer;
 }
 .link:hover {
   font-weight: 600;
@@ -537,6 +542,7 @@
 }
 
 .item-title {
+  cursor: pointer;
   width: 30%;
   font-size: 1.3rem;
   margin: auto 10px;
