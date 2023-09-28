@@ -154,16 +154,22 @@ function Cart({ products, cart, setCart, setQuantity }) {
           );
         })}
       </div>
-      <div className='checkout-section'>
-        <h2 className='cartSubtotal'>
-          {!subtotal
-            ? 'Your Cart is empty!'
-            : `Subtotal: ${subtotal.toFixed(2)}`}
-        </h2>
-        <button className='checkout-btn' onClick={() => navigate('/checkout')}>
-          Proceed to Checkout
-        </button>
-      </div>
+
+      {!subtotal ? (
+        <div className='checkout-section'>
+          <h2 className='cartSubtotal'>Your Cart is empty!</h2>
+        </div>
+      ) : (
+        <div className='checkout-section'>
+          <h2 className='cartSubtotal'>Subtotal: ${subtotal.toFixed(2)}</h2>
+          <button
+            className='checkout-btn'
+            onClick={() => navigate('/checkout')}
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      )}
     </div>
   );
 }
