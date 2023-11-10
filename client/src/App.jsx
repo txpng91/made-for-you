@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { getUsersCart, getAllProducts, getUsers } from './api';
+import { getUsersCart, getAllProducts } from './api';
 import Home from './components/Home';
 import AccountForm from './components/AccountForm';
 import Profile from './components/Profile';
@@ -16,9 +16,6 @@ function App() {
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState(
     window.localStorage.getItem('token') || null
-  );
-  const [passedUsername, setPassedUsername] = useState(
-    window.localStorage.getItem('passedUsername' || null)
   );
   const [userData, setUserData] = useState({});
   const [cart, setCart] = useState([]);
@@ -49,15 +46,6 @@ function App() {
     }
   }, [token]);
 
-  // Store username that was passed from login form in to local storage
-  useEffect(() => {
-    if (passedUsername) {
-      window.localStorage.setItem('passedUsername', passedUsername);
-    } else {
-      window.localStorage.removeItem('passedUsername');
-    }
-  }, [passedUsername]);
-
   // Fetch all posts with useEffect
   useEffect(() => {
     const fetchProducts = async () => {
@@ -67,20 +55,22 @@ function App() {
     fetchProducts();
   }, []);
 
-  // Track in the products
+  useEffect(() => {
+    if (userData) {
+      setUserData(userData);
+    }
+  }, [userData]);
 
   // Fetch user data and cart by username
   useEffect(() => {
     if (token) {
-      const fetchUserDataandCart = async () => {
-        const user = await getUsers(passedUsername);
-        const usersCart = await getUsersCart(user.id);
-        setUserData(user);
-        setCart(usersCart);
+      const fetchUserCart = async () => {
+        const usersCart = await getUsersCart(userData.id);
+        setCart(usersCart.products);
       };
-      fetchUserDataandCart();
+      fetchUserCart();
     }
-  }, [passedUsername]);
+  }, [token]);
 
   // Function to get quantity for all items
   function allQuantity() {
@@ -105,7 +95,6 @@ function App() {
     setToken(null);
     setUserData({});
     setCart([]);
-    setPassedUsername(0);
     closeMobileMenu();
     navigate('/');
   };
@@ -114,7 +103,7 @@ function App() {
     <>
       <div id='navbar'>
         {token ? (
-          <span className='icon-name'>Hello, {userData?.name?.firstname}!</span>
+          <span className='icon-name'>Hello, {userData?.firstname}!</span>
         ) : (
           <span className='icon-name'>Made For You</span>
         )}
@@ -143,12 +132,13 @@ function App() {
             </>
           ) : (
             <>
-              <Link onClick={closeMobileMenu} to={'/account/login'}>
+              <Link onClick={closeMobileMenu} to={'/users/login'}>
                 Login
               </Link>
-              <Link onClick={closeMobileMenu} to={'/account/sign-up'}>
+              {/* Sign Up function remove during process of backend development */}
+              {/* <Link onClick={closeMobileMenu} to={'/users/sign-up'}>
                 Sign Up
-              </Link>
+              </Link> */}
             </>
           )}
           <Link onClick={closeMobileMenu} to={'/products'}>
@@ -162,11 +152,12 @@ function App() {
       <Routes>
         <Route path={'/'} element={<Home />} />
         <Route
-          path='/account/:action'
+          path='/users/:action'
           element={
             <AccountForm
               setToken={setToken}
-              setPassedUsername={setPassedUsername}
+              userData={userData}
+              setUserData={setUserData}
             />
           }
         />

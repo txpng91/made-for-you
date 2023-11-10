@@ -67,7 +67,6 @@ const ProductItem = ({
       <div className='product-info'>
         <h3>{product.title.substring(0, 12)}</h3>
         <p>${product.price.toFixed(2)}</p>
-        <p>Rating {product.rating.rate}</p>
       </div>
 
       <div className='product-options'>

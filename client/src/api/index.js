@@ -1,4 +1,4 @@
-const API_URL = `https://fakestoreapi.com`;
+const API_URL = `http://localhost:5000/v1/api`;
 
 /************Account Form************/
 
@@ -23,7 +23,7 @@ export const registerUser = async (newUser) => {
 
 export const logUser = async (loginUser) => {
   try {
-    const res = await fetch('https://fakestoreapi.com/auth/login', {
+    const res = await fetch(`${API_URL}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export const logUser = async (loginUser) => {
 
 export async function getAllProducts(token) {
   try {
-    const res = await fetch(`https://fakestoreapi.com/products`, {
+    const res = await fetch(`${API_URL}/products`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export async function getAllProducts(token) {
 
 export async function getAProduct(id) {
   try {
-    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const res = await fetch(`${API_URL}/products/${id}`);
     const product = await res.json();
     return product;
   } catch (error) {
@@ -70,15 +70,12 @@ export async function getAProduct(id) {
 
 /**************Users**************/
 
-// Get all users
-export async function getUsers(passedUsername) {
+// Get user data
+export async function getUserData(id) {
   try {
-    const res = await fetch(`https://fakestoreapi.com/users`);
-    const result = await res.json();
-    const userData = result.find(
-      (filteredUser) => filteredUser.username === passedUsername
-    );
-    return userData;
+    const res = await fetch(`${API_URL}/users/${id}`);
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error(`Unable to retrieve all users to filter!`, error);
   }
@@ -88,12 +85,10 @@ export async function getUsers(passedUsername) {
 
 export const getUsersCart = async (id) => {
   try {
-    const res = await fetch(`https://fakestoreapi.com/carts`);
-    const carts = await res.json();
-    const cart = carts.find((usersCart) => usersCart.userId === id);
-
-    return cart.products;
+    const res = await fetch(`${API_URL}/carts/${id}`);
+    const cart = await res.json();
+    return cart;
   } catch (error) {
-    console.error(`Unable to get the user's cart.`, error);
+    // console.error(`Unable to get the user's cart.`, error);
   }
 };
