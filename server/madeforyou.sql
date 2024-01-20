@@ -17,7 +17,7 @@ CREATE TABLE users(
     lastname VARCHAR(25) NOT NULL,
     username VARCHAR(25) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    telephone INTEGER NOT NULL,
+    telephone VARCHAR(25) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
