@@ -109,8 +109,6 @@ function App() {
     navigate('/');
   };
 
-  console.log(cart);
-
   return (
     <>
       <div id='navbar'>
