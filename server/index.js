@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 const client = require('./db/index');
 client.connect();
 
-// Router: /api
+// Router: /v1/api
 app.use('/v1/api', require('./api'));
 
 // Listener

@@ -5,7 +5,7 @@ const API_URL = `http://localhost:5000/v1/api`;
 // Register user method
 export const registerUser = async (newUser) => {
   try {
-    const res = await fetch(`${API_URL}/users`, {
+    const res = await fetch(`${API_URL}/users/sign-up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,12 +41,11 @@ export const logUser = async (loginUser) => {
 
 // Fetch all products
 
-export async function getAllProducts(token) {
+export async function getAllProducts() {
   try {
     const res = await fetch(`${API_URL}/products`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
     });
     const result = await res.json();
@@ -89,6 +88,40 @@ export const getUsersCart = async (id) => {
     const cart = await res.json();
     return cart;
   } catch (error) {
-    // console.error(`Unable to get the user's cart.`, error);
+    console.error(`Unable to get the users cart.`, error);
+  }
+};
+
+export const createCart = async (id) => {
+  try {
+    const res = await fetch(`${API_URL}/carts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const cart = await res.json();
+    return cart;
+  } catch (error) {
+    console;
+  }
+};
+
+export const updateCart = async (id, products) => {
+  try {
+    const res = await fetch(`${API_URL}/carts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ products: products }),
+    });
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error("We're having trouble updating your cart.", error);
   }
 };

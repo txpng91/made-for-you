@@ -21,7 +21,7 @@ function ViewProduct({ products }) {
       <div className='product-details'>
         <h4 className='details-category'>{product?.category}</h4>
         <h2 className='details-title'>{product?.title}</h2>
-        <h3 className='details-price'>$ {product?.price}</h3>
+        <h3 className='details-price'>$ {product?.price.toFixed(2)}</h3>
         <p className='details-description'>{product?.description}</p>
         <div className='options'>
           <button className='return' onClick={() => navigate(`/products`)}>

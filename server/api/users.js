@@ -13,6 +13,7 @@ const {
 } = require('../db/users');
 
 // Register a New User
+// /v1/api/users/sign-up
 router.post('/sign-up', async (req, res, next) => {
   try {
     const { firstname, lastname, username, password, telephone } = req.body;

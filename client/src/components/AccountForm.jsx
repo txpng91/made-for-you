@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { registerUser, logUser } from '../api';
+import { registerUser, logUser, createCart } from '../api';
 
-function AccountForm({ setToken, setUserData }) {
+function AccountForm({ setToken, setId }) {
   const { action } = useParams();
   const navigate = useNavigate();
   const title = action === 'login' ? 'Log In' : 'Sign Up';
@@ -12,7 +12,9 @@ function AccountForm({ setToken, setUserData }) {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [telephone, setTelephone] = useState('');
+  const [telephone, setTelephone] = useState(0);
+
+  const [validatePassword, setValidatePassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,26 +27,31 @@ function AccountForm({ setToken, setUserData }) {
         };
         const result = await functType(loginUser);
         setToken(result.token);
-        setUserData(result.user);
-        navigate('/');
+        setId(result.user.id);
+        if (result.token) {
+          alert(result.message);
+          navigate('/');
+        }
       } catch (error) {
         console.error(error.response);
       }
     } else {
+      // Create new user with fields
       const newUser = {
-        email: email,
+        firstname: firstName,
+        lastname: lastName,
         username: username,
         password: password,
-        name: {
-          firstname: firstName,
-          lastname: lastName,
-        },
-        phone: phone,
+        telephone: telephone,
       };
-
-      await functType(newUser);
-      alert(`Welcome, ${newUser.name.firstname}! You can now login!`);
-      navigate(`/users/login`);
+      // Call the function to create user
+      const result = await functType(newUser);
+      console.log(result);
+      setToken(result.token); //set current token
+      setId(result.user.id); // set current id
+      await createCart(result.user.id);
+      alert(result.message);
+      navigate(`/`);
     }
   };
 
@@ -105,14 +112,31 @@ function AccountForm({ setToken, setUserData }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <label htmlFor='phone'>Phone Number: </label>
+          <label htmlFor='password'>Validate Password: </label>
           <input
-            type='text'
+            type='password'
+            value={validatePassword}
+            minLength={5}
+            onChange={(e) => setValidatePassword(e.target.value)}
+            required
+          />
+          <label htmlFor='telephone'>Phone Number: </label>
+          <input
+            type='number'
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
             required
+            placeholder=''
           />
-          <button type='submit'>{title}</button>
+          <button
+            className={
+              password === validatePassword ? 'showSubmitBtn' : 'hideBtn'
+            }
+            type='submit'
+          >
+            {title}
+          </button>
+          <p>{}</p>
         </form>
       )}
     </div>

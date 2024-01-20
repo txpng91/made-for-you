@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { getUsersCart, getAllProducts } from './api';
+import { getUsersCart, getAllProducts, getUserData, updateCart } from './api';
 import Home from './components/Home';
 import AccountForm from './components/AccountForm';
 import Profile from './components/Profile';
@@ -18,6 +18,7 @@ function App() {
     window.localStorage.getItem('token') || null
   );
   const [userData, setUserData] = useState({});
+  const [id, setId] = useState(window.localStorage.getItem('id') || null);
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
 
@@ -46,7 +47,16 @@ function App() {
     }
   }, [token]);
 
-  // Fetch all posts with useEffect
+  // Store user id into local storage
+  useEffect(() => {
+    if (id) {
+      window.localStorage.setItem('id', id);
+    } else {
+      window.localStorage.removeItem('id');
+    }
+  }, [id]);
+
+  // Fetch all products with useEffect
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await getAllProducts(token);
@@ -55,27 +65,23 @@ function App() {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    if (userData) {
-      setUserData(userData);
-    }
-  }, [userData]);
-
   // Fetch user data and cart by username
   useEffect(() => {
-    if (token) {
-      const fetchUserCart = async () => {
-        const usersCart = await getUsersCart(userData.id);
+    if (token && id) {
+      const fetchUserDataAndCart = async () => {
+        const data = await getUserData(id);
+        const usersCart = await getUsersCart(id);
+        setUserData(data);
         setCart(usersCart.products);
       };
-      fetchUserCart();
+      fetchUserDataAndCart();
     }
   }, [token]);
 
   // Function to get quantity for all items
   function allQuantity() {
     return cart.reduce((quantitySum, item) => {
-      const product = products.find((product) => product.id === item.productId);
+      const product = products.find((product) => product.id === item.productid);
       if (product) {
         return quantitySum + item.quantity;
       }
@@ -85,24 +91,30 @@ function App() {
 
   // Manage the side effect with quantity
   useEffect(() => {
-    const quantitySum = allQuantity();
-    setQuantity(quantitySum); // Return quantity all listed items to products
-  }, [cart, products]);
+    if (cart && id) {
+      const quantitySum = allQuantity();
+      setQuantity(quantitySum); // Return quantity all listed items to products
+      setCart(cart);
+    }
+  }, [cart]);
 
   // Removing data to log out
   const logOut = (e) => {
     e.preventDefault();
     setToken(null);
+    setId(null);
     setUserData({});
     setCart([]);
     closeMobileMenu();
     navigate('/');
   };
 
+  console.log(cart);
+
   return (
     <>
       <div id='navbar'>
-        {token ? (
+        {userData.firstname ? (
           <span className='icon-name'>Hello, {userData?.firstname}!</span>
         ) : (
           <span className='icon-name'>Made For You</span>
@@ -136,9 +148,9 @@ function App() {
                 Login
               </Link>
               {/* Sign Up function remove during process of backend development */}
-              {/* <Link onClick={closeMobileMenu} to={'/users/sign-up'}>
+              <Link onClick={closeMobileMenu} to={'/users/sign-up'}>
                 Sign Up
-              </Link> */}
+              </Link>
             </>
           )}
           <Link onClick={closeMobileMenu} to={'/products'}>
@@ -153,13 +165,7 @@ function App() {
         <Route path={'/'} element={<Home />} />
         <Route
           path='/users/:action'
-          element={
-            <AccountForm
-              setToken={setToken}
-              userData={userData}
-              setUserData={setUserData}
-            />
-          }
+          element={<AccountForm setToken={setToken} setId={setId} />}
         />
         <Route
           path='/products'
@@ -172,6 +178,7 @@ function App() {
               setCart={setCart}
               setToken={setToken}
               token={token}
+              id={id}
             />
           }
         />
@@ -187,6 +194,7 @@ function App() {
               cart={cart}
               setCart={setCart}
               setQuantity={setQuantity}
+              id={id}
             />
           }
         />

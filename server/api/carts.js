@@ -33,7 +33,8 @@ router.get('/:userId', async (req, res, next) => {
 // POST /api/carts
 router.post('/', async (req, res, next) => {
   try {
-    const newCart = await createCart(req.body);
+    const { id } = req.body;
+    const newCart = await createCart(id);
     res.json(newCart);
   } catch (error) {
     next(error);
@@ -41,10 +42,12 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT /api/carts/:userId
-router.patch('/:userId', async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
   try {
-    const updatedCart = await updateCart(req.params.userId, req.body);
-    res.json(updatedCart);
+    const { userId } = req.params;
+    const { products } = req.body;
+    const updatedCart = await updateCart(userId, products);
+    res.json(updatedCart); //updatedCart;
   } catch (error) {
     next(error);
   }

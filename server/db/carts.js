@@ -3,7 +3,7 @@ const client = require('./index');
 // Get all carts
 async function getAllCarts() {
   try {
-    const { rows } = await client.query(`SELECT * FROM carts`);
+    const { rows } = await client.query(`SELECT * FROM carts ORDER BY id`);
     return rows;
   } catch (error) {
     console.error(error.message);
@@ -23,16 +23,13 @@ async function getCartByUserId(userId) {
 }
 
 // Create a cart
-async function createCart(body) {
+async function createCart(id) {
   try {
-    const jsonArrayData = JSON.stringify([
-      { productId: body.productId, quantity: body.quantity },
-    ]);
     const {
       rows: [cart],
     } = await client.query(
-      `INSERT INTO carts (userId, products) VALUES ($1, $2) RETURNING *`,
-      [body.userId, jsonArrayData]
+      `INSERT INTO carts (userid, products) VALUES ($1, '[]') RETURNING *`,
+      [id]
     );
     return cart;
   } catch (error) {
@@ -41,22 +38,13 @@ async function createCart(body) {
 }
 
 // Update products array from user's cart
-async function updateCart(userId, fields = {}) {
-  // Build a set string
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=$${index + 1}`)
-    .join(', ');
-
-  if (setString === 0) {
-    return;
-  }
-
+async function updateCart(userId, products) {
   try {
     const {
       rows: [updatedCart],
     } = await client.query(
-      `UPDATE carts SET${setString} WHERE userId=${userId} RETURNING *;`,
-      Object.values(fields)
+      `UPDATE carts SET products = $2 WHERE userid=$1 RETURNING *;`,
+      [userId, JSON.stringify(products)] // NOTE: Stringify the array when updating the object
     );
     return updatedCart;
   } catch (error) {

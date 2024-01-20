@@ -19,27 +19,25 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     telephone INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP FOR EACH ROW ON UPDATE AS ROW CHANGE TIMESTAMP NOT NULL
 );
 
 -- Create a user
 INSERT INTO users(firstname, lastname, username, password, telephone)
 VALUES ('Pete', 'Garcia', 'txpng91', '91Pet@rva', '8042394544');
 
--- Carts table
+-- Create a carts table
 CREATE TABLE carts(
     id SERIAL PRIMARY KEY,
     userId INTEGER NOT NULL REFERENCES users,
-    products JSON,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    products JSONB,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    lastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO carts(userId, products) VALUES ()
+-- Create a new cart inside table
+INSERT INTO carts (userId, products) VALUES ($1, '[]') RETURNING *
 
-
-
--- Example for PostgreSQL
-INSERT INTO carts (userId, products)
-VALUES ('value1', '{"key1": "value1", "key2": "value2"}'::jsonb)
-ON CONFLICT (column1) DO UPDATE
-SET products = COALESCE(carts.products, '{}'::jsonb) || '{"new_key": "new_value"}'::jsonb;
+-- How to update an existing cart
+UPDATE carts SET products = $2 WHERE userid=$1 RETURNING *;,
+      [userId, JSON.stringify(products)]
