@@ -12,7 +12,7 @@ function AccountForm({ setToken, setId }) {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [telephone, setTelephone] = useState(0);
+  const [telephone, setTelephone] = useState('');
 
   const [validatePassword, setValidatePassword] = useState('');
 
@@ -33,7 +33,7 @@ function AccountForm({ setToken, setId }) {
           navigate('/');
         }
       } catch (error) {
-        console.error(error.response);
+        setError('Either username or password is incorrect. Please try again.');
       }
     } else {
       // Create new user with fields
@@ -46,7 +46,6 @@ function AccountForm({ setToken, setId }) {
       };
       // Call the function to create user
       const result = await functType(newUser);
-      console.log(result);
       setToken(result.token); //set current token
       setId(result.user.id); // set current id
       await createCart(result.user.id);
@@ -76,7 +75,12 @@ function AccountForm({ setToken, setId }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type='submit'>{title}</button>
+          <button
+            className={password.length >= 5 ? 'showSubmitBtn' : 'disableBtn'}
+            type='submit'
+          >
+            {title}
+          </button>
         </form>
       ) : (
         <form id='register' onSubmit={handleSubmit}>
@@ -112,7 +116,7 @@ function AccountForm({ setToken, setId }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <label htmlFor='password'>Validate Password: </label>
+          <label htmlFor='password'>Confirm Password: </label>
           <input
             type='password'
             value={validatePassword}
@@ -122,15 +126,16 @@ function AccountForm({ setToken, setId }) {
           />
           <label htmlFor='telephone'>Phone Number: </label>
           <input
-            type='number'
+            type='text'
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
             required
-            placeholder=''
           />
           <button
             className={
-              password === validatePassword ? 'showSubmitBtn' : 'hideBtn'
+              password === validatePassword && password.length >= 5
+                ? 'showSubmitBtn'
+                : 'disableBtn'
             }
             type='submit'
           >
@@ -139,6 +144,7 @@ function AccountForm({ setToken, setId }) {
           <p>{}</p>
         </form>
       )}
+      <p className='error-type'>{error ? error : ' '}</p>
     </div>
   );
 }

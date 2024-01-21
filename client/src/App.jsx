@@ -59,7 +59,7 @@ function App() {
   // Fetch all products with useEffect
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await getAllProducts(token);
+      const response = await getAllProducts();
       setProducts(response);
     };
     fetchProducts();
