@@ -1,6 +1,7 @@
 // Web server
 const express = require('express');
 const app = express();
+const port = 5000;
 const cors = require('cors');
 
 // Middleware
@@ -23,6 +24,6 @@ client.connect();
 app.use('/v1/api', require('./api'));
 
 // Listener
-app.listen(5000, () => {
-  console.log('server has started on 5000');
+app.listen(port, () => {
+  console.log(`Server has started on ${port}.`);
 });
