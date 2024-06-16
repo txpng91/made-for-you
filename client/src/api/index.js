@@ -74,6 +74,7 @@ export async function getUserData(id) {
   try {
     const res = await fetch(`${API_URL}/users/${id}`);
     const data = await res.json();
+    delete data.pasword;
     return data;
   } catch (error) {
     console.error(`Unable to retrieve all users to filter!`, error);

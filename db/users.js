@@ -63,9 +63,11 @@ async function getUser({ username, password }) {
   }
 }
 
+// FOR POSTMAN USE ONLY DELETE BEFORE DEPLOYMENT
 async function getUsers() {
   try {
     const { rows } = await client.query(`SELECT * FROM users ORDER BY id`);
+    delete rows.password;
     return rows;
   } catch (error) {
     throw error;
@@ -77,6 +79,7 @@ async function getUserById(id) {
     const {
       rows: [user],
     } = await client.query('SELECT * FROM users WHERE users.id = $1', [id]);
+    delete user.password;
     return user;
   } catch (error) {
     throw error;

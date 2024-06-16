@@ -8,7 +8,7 @@ const {
   createUser,
   getUser,
   getUserByUsername,
-  getUsers,
+  getUsers, // FOR POSTMAN USE ONLY DELETE BEFORE DEPLOYMENT
   getUserById,
 } = require('../db/users');
 
@@ -57,7 +57,7 @@ router.post('/sign-up', async (req, res, next) => {
   }
 });
 
-// Get all users
+// Get all users: FOR POSTMAN USE ONLY DELETE BEFORE DEPLOYMENT
 router.get('/', async (req, res) => {
   try {
     const allUsers = await getUsers();

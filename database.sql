@@ -1,4 +1,4 @@
--- CREATE DATABASE madeforyou
+
 
 -- Products table
 CREATE TABLE products(
@@ -36,8 +36,8 @@ CREATE TABLE carts(
 );
 
 -- Create a new cart inside table
-INSERT INTO carts (userId, products) VALUES ($1, '[]') RETURNING *
+-- INSERT INTO carts (userId, products) VALUES ($1, '[]') RETURNING *
 
 -- How to update an existing cart
-UPDATE carts SET products = $2 WHERE userid=$1 RETURNING *;,
-      [userId, JSON.stringify(products)]
+-- UPDATE carts SET products = $2 WHERE userid=$1 RETURNING *;,
+--       [userId, JSON.stringify(products)]
