@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { getUsersCart, getAllProducts, getUsers } from './api';
+import { getUsersCart, getAllProducts, getUserData, updateCart } from './api';
 import Home from './components/Home';
 import AccountForm from './components/AccountForm';
 import Profile from './components/Profile';
@@ -17,10 +17,8 @@ function App() {
   const [token, setToken] = useState(
     window.localStorage.getItem('token') || null
   );
-  const [passedUsername, setPassedUsername] = useState(
-    window.localStorage.getItem('passedUsername' || null)
-  );
   const [userData, setUserData] = useState({});
+  const [id, setId] = useState(window.localStorage.getItem('id') || null);
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(0);
 
@@ -49,43 +47,41 @@ function App() {
     }
   }, [token]);
 
-  // Store username that was passed from login form in to local storage
+  // Store user id into local storage
   useEffect(() => {
-    if (passedUsername) {
-      window.localStorage.setItem('passedUsername', passedUsername);
+    if (id) {
+      window.localStorage.setItem('id', id);
     } else {
-      window.localStorage.removeItem('passedUsername');
+      window.localStorage.removeItem('id');
     }
-  }, [passedUsername]);
+  }, [id]);
 
-  // Fetch all posts with useEffect
+  // Fetch all products with useEffect
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await getAllProducts(token);
+      const response = await getAllProducts();
       setProducts(response);
     };
     fetchProducts();
   }, []);
 
-  // Track in the products
-
   // Fetch user data and cart by username
   useEffect(() => {
-    if (token) {
-      const fetchUserDataandCart = async () => {
-        const user = await getUsers(passedUsername);
-        const usersCart = await getUsersCart(user.id);
-        setUserData(user);
-        setCart(usersCart);
+    if (token && id) {
+      const fetchUserDataAndCart = async () => {
+        const data = await getUserData(id);
+        const usersCart = await getUsersCart(id);
+        setUserData(data);
+        setCart(usersCart.products);
       };
-      fetchUserDataandCart();
+      fetchUserDataAndCart();
     }
-  }, [passedUsername]);
+  }, [token]);
 
   // Function to get quantity for all items
   function allQuantity() {
     return cart.reduce((quantitySum, item) => {
-      const product = products.find((product) => product.id === item.productId);
+      const product = products.find((product) => product.id === item.productid);
       if (product) {
         return quantitySum + item.quantity;
       }
@@ -95,17 +91,20 @@ function App() {
 
   // Manage the side effect with quantity
   useEffect(() => {
-    const quantitySum = allQuantity();
-    setQuantity(quantitySum); // Return quantity all listed items to products
-  }, [cart, products]);
+    if (cart && id) {
+      const quantitySum = allQuantity();
+      setQuantity(quantitySum); // Return quantity all listed items to products
+      setCart(cart);
+    }
+  }, [cart]);
 
   // Removing data to log out
   const logOut = (e) => {
     e.preventDefault();
     setToken(null);
+    setId(null);
     setUserData({});
     setCart([]);
-    setPassedUsername(0);
     closeMobileMenu();
     navigate('/');
   };
@@ -113,8 +112,8 @@ function App() {
   return (
     <>
       <div id='navbar'>
-        {token ? (
-          <span className='icon-name'>Hello, {userData?.name?.firstname}!</span>
+        {userData.firstname ? (
+          <span className='icon-name'>Hello, {userData?.firstname}!</span>
         ) : (
           <span className='icon-name'>Made For You</span>
         )}
@@ -143,10 +142,11 @@ function App() {
             </>
           ) : (
             <>
-              <Link onClick={closeMobileMenu} to={'/account/login'}>
+              <Link onClick={closeMobileMenu} to={'/users/login'}>
                 Login
               </Link>
-              <Link onClick={closeMobileMenu} to={'/account/sign-up'}>
+              {/* Sign Up function remove during process of backend development */}
+              <Link onClick={closeMobileMenu} to={'/users/sign-up'}>
                 Sign Up
               </Link>
             </>
@@ -162,13 +162,8 @@ function App() {
       <Routes>
         <Route path={'/'} element={<Home />} />
         <Route
-          path='/account/:action'
-          element={
-            <AccountForm
-              setToken={setToken}
-              setPassedUsername={setPassedUsername}
-            />
-          }
+          path='/users/:action'
+          element={<AccountForm setToken={setToken} setId={setId} />}
         />
         <Route
           path='/products'
@@ -181,6 +176,7 @@ function App() {
               setCart={setCart}
               setToken={setToken}
               token={token}
+              id={id}
             />
           }
         />
@@ -196,6 +192,7 @@ function App() {
               cart={cart}
               setCart={setCart}
               setQuantity={setQuantity}
+              id={id}
             />
           }
         />

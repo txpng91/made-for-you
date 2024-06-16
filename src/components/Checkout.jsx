@@ -11,7 +11,7 @@ function Checkout({ products, cart, quantity }) {
   // Function to add all prices for the listed items in the cart
   function getCartTotal() {
     return cart.reduce((total, item) => {
-      const product = products.find((product) => product.id === item.productId);
+      const product = products.find((product) => product.id === item.productid);
       if (product) {
         return total + product.price * item.quantity;
       }
@@ -25,20 +25,9 @@ function Checkout({ products, cart, quantity }) {
     setSubtotal(total);
   }, [cart, products]);
 
-  // Function to get quantity for all items
-  function allQuantity() {
-    return cart.reduce((quantitySum, item) => {
-      const product = products.find((product) => product.id === item.productId);
-      if (product) {
-        return quantitySum + item.quantity;
-      }
-      return quantitySum;
-    }, 0);
-  }
-
   // Filter the products with the listed items in the cart
   const getAllItemDetails = (item) => {
-    return products.find((product) => product.id === item.productId);
+    return products.find((product) => product.id === item.productid);
   };
 
   return (
@@ -135,9 +124,9 @@ function Checkout({ products, cart, quantity }) {
             const productItem = getAllItemDetails(item);
             return (
               // Pass cart keys and filtered product keys
-              <div key={item.productId} className='checkout-item'>
+              <div key={item.productid} className='checkout-item'>
                 <p id='checkout-item-title'>{productItem?.title}</p>
-                <p>${(productItem?.price).toFixed(2)}</p>
+                <p>${productItem?.price}</p>
                 <p>{item?.quantity}</p>
               </div>
             );

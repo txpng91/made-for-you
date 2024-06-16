@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { registerUser, logUser } from '../api';
+import { registerUser, logUser, createCart } from '../api';
 
-function AccountForm({ setToken, setPassedUsername }) {
+function AccountForm({ setToken, setId }) {
   const { action } = useParams();
   const navigate = useNavigate();
   const title = action === 'login' ? 'Log In' : 'Sign Up';
@@ -10,16 +10,11 @@ function AccountForm({ setToken, setPassedUsername }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [city, setCity] = useState('');
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState(0);
-  const [zipCode, setZipCode] = useState('');
-  const [lat, setLat] = useState('');
-  const [long, setLong] = useState('');
-  const [phone, setPhone] = useState('');
+  const [telephone, setTelephone] = useState('');
+
+  const [validatePassword, setValidatePassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,38 +26,31 @@ function AccountForm({ setToken, setPassedUsername }) {
           password: password,
         };
         const result = await functType(loginUser);
-        setPassedUsername(loginUser.username);
         setToken(result.token);
-        navigate('/');
+        setId(result.user.id);
+        if (result.token) {
+          alert(result.message);
+          navigate('/');
+        }
       } catch (error) {
-        console.error(error.response);
-        setError(error.response.data);
+        setError('Either username or password is incorrect. Please try again.');
       }
     } else {
+      // Create new user with fields
       const newUser = {
-        email: email,
+        firstname: firstName,
+        lastname: lastName,
         username: username,
         password: password,
-        name: {
-          firstname: firstName,
-          lastname: lastName,
-        },
-        address: {
-          city: city,
-          street: street,
-          number: number,
-          zipcode: zipCode,
-          geolocation: {
-            lat: lat,
-            long: long,
-          },
-        },
-        phone: phone,
+        telephone: telephone,
       };
-
-      await functType(newUser);
-      alert(`Welcome, ${newUser.name.firstname}! You can now login!`);
-      navigate(`/account/login`);
+      // Call the function to create user
+      const result = await functType(newUser);
+      setToken(result.token); //set current token
+      setId(result.user.id); // set current id
+      await createCart(result.user.id);
+      alert(result.message);
+      navigate(`/`);
     }
   };
 
@@ -87,7 +75,12 @@ function AccountForm({ setToken, setPassedUsername }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type='submit'>{title}</button>
+          <button
+            className={password.length >= 5 ? 'showSubmitBtn' : 'disableBtn'}
+            type='submit'
+          >
+            {title}
+          </button>
         </form>
       ) : (
         <form id='register' onSubmit={handleSubmit}>
@@ -115,14 +108,6 @@ function AccountForm({ setToken, setPassedUsername }) {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <label htmlFor='email'>Email: </label>
-          <input
-            type='text'
-            value={email}
-            minLength={5}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
           <label htmlFor='password'>Password: </label>
           <input
             type='password'
@@ -131,58 +116,35 @@ function AccountForm({ setToken, setPassedUsername }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <label htmlFor='phone'>Phone Number: </label>
+          <label htmlFor='password'>Confirm Password: </label>
+          <input
+            type='password'
+            value={validatePassword}
+            minLength={5}
+            onChange={(e) => setValidatePassword(e.target.value)}
+            required
+          />
+          <label htmlFor='telephone'>Phone Number: </label>
           <input
             type='text'
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={telephone}
+            onChange={(e) => setTelephone(e.target.value)}
             required
           />
-          <label htmlFor='number'>Number: </label>
-          <input
-            type='number'
-            value={number}
-            onChange={(e) => setNumber(e.target.value)}
-            required
-          />
-          <label htmlFor='street'>Street: </label>
-          <input
-            type='text'
-            value={street}
-            onChange={(e) => setStreet(e.target.value)}
-            required
-          />
-          <label htmlFor='city'>City: </label>
-          <input
-            type='text'
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            required
-          />
-          <label htmlFor='zipCode'>Zip Code: </label>
-          <input
-            type='text'
-            value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
-            required
-          />
-          <label htmlFor='lat'>Geolocation(lat): </label>
-          <input
-            type='text'
-            value={lat}
-            onChange={(e) => setLat(e.target.value)}
-            required
-          />
-          <label htmlFor='long'>Geolocation(long): </label>
-          <input
-            type='text'
-            value={long}
-            onChange={(e) => setLong(e.target.value)}
-            required
-          />
-          <button type='submit'>{title}</button>
+          <button
+            className={
+              password === validatePassword && password.length >= 5
+                ? 'showSubmitBtn'
+                : 'disableBtn'
+            }
+            type='submit'
+          >
+            {title}
+          </button>
+          <p>{}</p>
         </form>
       )}
+      <p className='error-type'>{error ? error : ' '}</p>
     </div>
   );
 }

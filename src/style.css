@@ -129,11 +129,29 @@ button {
   text-indent: 5px;
 }
 
-#account-form button {
+.showSubmitBtn {
   display: block;
   font-size: 1rem;
   padding: 3px 8px;
   margin: 25px auto 0;
+}
+
+.disableBtn {
+  display: block;
+  background-color: #b6b6b8;
+  border-radius: 5px;
+  border: 1px solid #b6b6b8;
+  color: #858585;
+  font-size: 1rem;
+  padding: 3px 8px;
+  margin: 25px auto 0;
+  cursor: not-allowed;
+}
+
+.error-type {
+  margin: 10px auto 0;
+  text-align: center;
+  color: red;
 }
 
 /* **************Home************** */
@@ -946,6 +964,10 @@ hr {
     margin: 0 10px;
     text-indent: 2px;
     padding: 2px;
+  }
+
+  .product-categories {
+    text-align: -webkit-center;
   }
 
   .category-btn {

@@ -1,11 +1,11 @@
-const API_URL = `https://fakestoreapi.com`;
+const API_URL = `${import.meta.env.VITE_API_URL}v1/api`;
 
 /************Account Form************/
 
 // Register user method
 export const registerUser = async (newUser) => {
   try {
-    const res = await fetch(`${API_URL}/users`, {
+    const res = await fetch(`${API_URL}/users/sign-up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const registerUser = async (newUser) => {
 
 export const logUser = async (loginUser) => {
   try {
-    const res = await fetch('https://fakestoreapi.com/auth/login', {
+    const res = await fetch(`${API_URL}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,12 +41,11 @@ export const logUser = async (loginUser) => {
 
 // Fetch all products
 
-export async function getAllProducts(token) {
+export async function getAllProducts() {
   try {
-    const res = await fetch(`https://fakestoreapi.com/products`, {
+    const res = await fetch(`${API_URL}/products`, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
     });
     const result = await res.json();
@@ -60,7 +59,7 @@ export async function getAllProducts(token) {
 
 export async function getAProduct(id) {
   try {
-    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const res = await fetch(`${API_URL}/products/${id}`);
     const product = await res.json();
     return product;
   } catch (error) {
@@ -70,15 +69,13 @@ export async function getAProduct(id) {
 
 /**************Users**************/
 
-// Get all users
-export async function getUsers(passedUsername) {
+// Get user data
+export async function getUserData(id) {
   try {
-    const res = await fetch(`https://fakestoreapi.com/users`);
-    const result = await res.json();
-    const userData = result.find(
-      (filteredUser) => filteredUser.username === passedUsername
-    );
-    return userData;
+    const res = await fetch(`${API_URL}/users/${id}`);
+    const data = await res.json();
+    delete data.pasword;
+    return data;
   } catch (error) {
     console.error(`Unable to retrieve all users to filter!`, error);
   }
@@ -88,12 +85,44 @@ export async function getUsers(passedUsername) {
 
 export const getUsersCart = async (id) => {
   try {
-    const res = await fetch(`https://fakestoreapi.com/carts`);
-    const carts = await res.json();
-    const cart = carts.find((usersCart) => usersCart.userId === id);
-
-    return cart.products;
+    const res = await fetch(`${API_URL}/carts/${id}`);
+    const cart = await res.json();
+    return cart;
   } catch (error) {
-    console.error(`Unable to get the user's cart.`, error);
+    console.error(`Unable to get the users cart.`, error);
+  }
+};
+
+export const createCart = async (id) => {
+  try {
+    const res = await fetch(`${API_URL}/carts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    });
+    const cart = await res.json();
+    return cart;
+  } catch (error) {
+    console;
+  }
+};
+
+export const updateCart = async (id, products) => {
+  try {
+    const res = await fetch(`${API_URL}/carts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ products: products }),
+    });
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error("We're having trouble updating your cart.", error);
   }
 };
