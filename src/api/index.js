@@ -5,7 +5,7 @@ const location = `${import.meta.env.VITE_API_LOCATION}`;
 // Register user method
 export const registerUser = async (newUser) => {
   try {
-    const res = await fetch(`${API_URL}${location}/users/sign-up`, {
+    const res = await fetch(`${API_URL}/${location}/users/sign-up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const registerUser = async (newUser) => {
 
 export const logUser = async (loginUser) => {
   try {
-    const res = await fetch(`${API_URL}${location}/users/login`, {
+    const res = await fetch(`${API_URL}/${location}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export const logUser = async (loginUser) => {
 export async function getAllProducts() {
   try {
     console.log('API_URL: ', API_URL);
-    const res = await fetch(`${API_URL}${location}/products`, {
+    const res = await fetch(`${API_URL}/${location}/products`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -60,7 +60,7 @@ export async function getAllProducts() {
 
 export async function getAProduct(id) {
   try {
-    const res = await fetch(`${API_URL}${location}/products/${id}`);
+    const res = await fetch(`${API_URL}/${location}/products/${id}`);
     const product = await res.json();
     return product;
   } catch (error) {
@@ -73,7 +73,7 @@ export async function getAProduct(id) {
 // Get user data
 export async function getUserData(id) {
   try {
-    const res = await fetch(`${API_URL}${location}/users/${id}`);
+    const res = await fetch(`${API_URL}/${location}/users/${id}`);
     const data = await res.json();
     delete data.pasword;
     return data;
@@ -86,7 +86,7 @@ export async function getUserData(id) {
 
 export const getUsersCart = async (id) => {
   try {
-    const res = await fetch(`${API_URL}${location}/carts/${id}`);
+    const res = await fetch(`${API_URL}/${location}/carts/${id}`);
     const cart = await res.json();
     return cart;
   } catch (error) {
@@ -96,7 +96,7 @@ export const getUsersCart = async (id) => {
 
 export const createCart = async (id) => {
   try {
-    const res = await fetch(`${API_URL}${location}/carts`, {
+    const res = await fetch(`${API_URL}/${location}/carts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export const createCart = async (id) => {
 
 export const updateCart = async (id, products) => {
   try {
-    const res = await fetch(`${API_URL}${location}/carts/${id}`, {
+    const res = await fetch(`${API_URL}/${location}/carts/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
