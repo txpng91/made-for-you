@@ -8,28 +8,17 @@ function Profile({ userData, setUserData }) {
       ) : (
         <div id='profile'>
           <h1>
-            Hello, {userData?.name?.firstname} {userData?.name?.lastname}!
+            Hello, {userData?.firstname} {userData?.lastname}!
           </h1>
           <div className='profile-info'>
             <div className='basic-info'>
               <h2>Basic</h2>
-              <p>First Name: {userData?.name?.firstname}</p>
-              <p>Last Name: {userData?.name?.lastname}</p>
-              <p>Email: {userData?.email}</p>
-              <p>Phone: {userData?.phone}</p>
-            </div>
-            <div className='address-section'>
-              <h2>Address</h2>
-              <p>
-                {userData?.address?.number} {userData?.address?.street}
-              </p>
-              <p>
-                {userData?.address?.city}, {userData?.address?.zipcode}
-              </p>
+              <p>First Name: {userData?.firstname}</p>
+              <p>Last Name: {userData?.lastname}</p>
+              <p>Username: {userData?.username}</p>
+              <p>Phone: {userData?.telephone}</p>
             </div>
           </div>
-
-          {/* <div className='profile-options'></div> */}
         </div>
       )}
     </>

@@ -8,6 +8,7 @@ const Products = ({
   setCart,
   cart,
   setQuantity,
+  id,
 }) => {
   const [searchParams, setsearchParams] = useState('');
   const [filter, setFilter] = useState('');
@@ -56,15 +57,15 @@ const Products = ({
           </button>
           <button
             className='category-btn'
-            onClick={() => setFilter("men's clothing")}
+            onClick={() => setFilter('mens clothing')}
           >
-            Men
+            Men's Clothing
           </button>
           <button
             className='category-btn'
-            onClick={() => setFilter("women's clothing")}
+            onClick={() => setFilter('womens clothing')}
           >
-            Women
+            Women's Clothing
           </button>
           <button
             className='category-btn'
@@ -74,9 +75,15 @@ const Products = ({
           </button>
           <button
             className='category-btn'
-            onClick={() => setFilter('electronics')}
+            onClick={() => setFilter('womens shoes')}
           >
-            Electronics
+            Women's Shoes
+          </button>
+          <button
+            className='category-btn'
+            onClick={() => setFilter('mens shoes')}
+          >
+            Men's Shoes
           </button>
         </div>
         <div className='sort-products'>
@@ -102,6 +109,7 @@ const Products = ({
               token={token}
               products={products}
               setQuantity={setQuantity}
+              id={id}
             />
           );
         })}
