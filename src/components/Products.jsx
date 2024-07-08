@@ -68,7 +68,7 @@ const Products = ({
             Women's Clothing
           </button>
           <button className='category-btn' onClick={() => setFilter('jewelry')}>
-            Jewelery
+            Jewelry
           </button>
           <button
             className='category-btn'
