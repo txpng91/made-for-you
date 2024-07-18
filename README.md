@@ -13,3 +13,5 @@ As a member, you can additionally have your own profile, add products into a car
 Now that we have the client set up, the server is now in development using PostgreSQL and Express JS. The server will allow users to register as new members, render new products, assign carts to new members.
 
 The purpose of this application is to grow in Full Stack Web Development.
+
+https://dynamic-scone-4efa8c.netlify.app/
