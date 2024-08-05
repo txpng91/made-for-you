@@ -1,15 +1,19 @@
 # Made For You
 
-Technologies: ReactJS, NodeJS and a Fake Store API provided by a Third Party
+Technologies: ReactJS, NodeJS, ExpressJS, Heroku PostgreSQL
 
-An e-commerce application that'll allow users to browse latest products that this app has to offer.
+09/20/2023
+
+An e-commerce application that'll allow users to browse latest products within the app.
 
 As a non-member, you can browse the application and view products. You can also filter products, through a search bar or by selecting a category of choice, as well as sorting the products by name or price.
 
-As a member, you can additionally have your own profile, add products into a cart, and check out.
+As a member, you can additionally have your own profile, and have a cart to add or remove products, and check out.
 
-## What's next for this application ?
+08/03/2024
 
-Now that we have the client set up, the server is now in development using PostgreSQL and Express JS. The server will allow users to register as new members, render new products, assign carts to new members.
+The server is now in development using Heroku PostgreSQL and Express JS. The server will allow users to register as new members, render new products, assign carts to new members.
+
+[https](https://github.com/txpng91/made-for-you-backend)
 
 The purpose of this application is to grow in Full Stack Web Development.
