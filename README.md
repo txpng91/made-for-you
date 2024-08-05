@@ -14,6 +14,6 @@ As a member, you can additionally have your own profile, and have a cart to add 
 
 The server is now in development using Heroku PostgreSQL and Express JS. The server will allow users to register as new members, render new products, assign carts to new members.
 
-[https](https://github.com/txpng91/made-for-you-backend)
+[Backend}(https://github.com/txpng91/made-for-you-backend)
 
 The purpose of this application is to grow in Full Stack Web Development.
