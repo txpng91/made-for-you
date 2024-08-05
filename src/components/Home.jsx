@@ -27,8 +27,8 @@ function Home() {
           category='Jewelry'
         />
         <IntroCard
-          image='https://images.unsplash.com/photo-1610547169157-bc65b25ca263?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-          category='Electronics'
+          image='https://www.shoppopdisplays.com/blog/wp-content/uploads/2019/01/Retail-display-in-shoe-store.jpg'
+          category='Shoes'
         />
       </div>
     </div>
