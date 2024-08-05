@@ -500,6 +500,11 @@ button {
   padding: 10px;
 }
 
+.empty-cart h1 {
+  text-align: center;
+  margin-top: 30px;
+}
+
 .cart {
   margin: 20px auto;
   width: 72%;
@@ -769,6 +774,176 @@ hr {
 .checkout-btn2:hover {
   font-weight: 600;
   box-shadow: 3px 3px 5px #186df5;
+}
+
+/*    ****************************************************************** */
+/* ********************************Tablet********************************** */
+/*    ****************************************************************** */
+
+@media screen and (max-width: 768px) {
+  .products-container {
+    padding: 50px 0;
+  }
+
+  #navbar {
+    height: 50px;
+    width: 100%;
+    font-size: 1.3rem;
+    padding: 0em 3em;
+    color: aliceblue;
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .icon-name {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: aliceblue;
+    position: absolute;
+    margin-top: -20px;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 20%);
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: block;
+  }
+
+  .material-symbols-outlined {
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 50px;
+    left: -100%;
+    transition: all 0.5s ease;
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .links button,
+  .links span {
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .links-active {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 50px;
+    left: 0%;
+    transition: all 0.5s ease;
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .links-active button,
+  .links-active span,
+  .links-active a {
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  #navbar a {
+    color: aliceblue;
+    text-decoration: none;
+    padding: 1em;
+    margin: 0;
+    letter-spacing: 1px;
+    z-index: 1;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+    text-align: center;
+    background: linear-gradient(90deg, rgb(55, 55, 55) 0%, #1e2229 100%);
+  }
+
+  .product-view {
+    display: block;
+  }
+
+  .details-image-cover,
+  .details-description {
+    width: 100%;
+  }
+  .details-image {
+    display: block;
+    margin: 0 auto;
+  }
+  .product-details {
+    width: 100%;
+  }
+  .return {
+    margin: 0 auto;
+  }
+
+  .cart-page {
+    display: block;
+  }
+
+  .cart {
+    width: 95%;
+    display: block;
+    padding: 20px 15px;
+    margin: 20px auto 30px;
+  }
+
+  .checkout-section {
+    width: 50%;
+    display: block;
+  }
+
+  .cartSubtotal {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .checkout-btn {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .checkout {
+    padding: 5px;
+  }
+
+  .billing {
+    padding: 60px 10px;
+  }
+
+  .your-cart-heading {
+    padding: 0 10px;
+  }
+
+  .your-cart {
+    width: 45%;
+  }
+  .checkout-items {
+    padding: 10px;
+  }
+
+  .checkout-item {
+    gap: 1rem;
+  }
+
+  #checkout-item-title {
+    width: 50%;
+  }
 }
 
 /*    ****************************************************************** */
@@ -1087,6 +1262,11 @@ hr {
     padding: 10px;
   }
 
+  .empty-cart h1 {
+    font-size: 1rem;
+    margin-top: 30px;
+  }
+
   .cart {
     margin: 10px auto;
     width: 100%;
@@ -1124,7 +1304,7 @@ hr {
   .item-title {
     width: 100%;
     font-size: 1rem;
-    margin: 10px 10px;
+    margin: 10px auto;
     text-align: center;
     transition: all 0.2s linear;
   }
@@ -1138,7 +1318,7 @@ hr {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 100px;
+    padding: 10px 100px 0;
   }
 
   .cart-values {
@@ -1159,14 +1339,14 @@ hr {
   }
 
   .decre-btn {
-    padding: 4px 11px;
+    padding: 3px 12px;
     margin: auto 5px;
   }
 
   .remove-item-btn {
     font-size: 1rem;
-    padding: 4px 12px;
-    margin: auto 0;
+    padding: 4px 8px;
+    margin: 15px 0;
   }
 
   .remove-item-btn:hover {

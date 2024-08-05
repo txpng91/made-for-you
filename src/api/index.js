@@ -43,7 +43,6 @@ export const logUser = async (loginUser) => {
 
 export async function getAllProducts() {
   try {
-    console.log('API_URL: ', API_URL);
     const res = await fetch(`${API_URL}/${location}/products`, {
       headers: {
         'Content-Type': 'application/json',

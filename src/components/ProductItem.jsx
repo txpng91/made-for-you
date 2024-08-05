@@ -78,7 +78,7 @@ const ProductItem = ({
     <div className='product' key={product.id}>
       <img className='product-image' src={product.image} alt={product.title} />
       <div className='product-info'>
-        <h3>{product.title.substring(0, 15)}</h3>
+        <h3>{product.title.substring(0, 15)} ...</h3>
         <p>${product.price.toFixed(2)}</p>
       </div>
 

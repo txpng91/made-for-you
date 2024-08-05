@@ -125,7 +125,9 @@ function Checkout({ products, cart, quantity }) {
             return (
               // Pass cart keys and filtered product keys
               <div key={item.productid} className='checkout-item'>
-                <p id='checkout-item-title'>{productItem?.title}</p>
+                <p id='checkout-item-title'>
+                  {productItem?.title.substring(0, 15)} ...
+                </p>
                 <p>${productItem?.price}</p>
                 <p>{item?.quantity}</p>
               </div>

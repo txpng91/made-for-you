@@ -127,7 +127,11 @@ function Cart({ products, cart, setCart, setQuantity, id }) {
     }
   };
 
-  return (
+  return cart.length <= 0 ? (
+    <div className='empty-cart'>
+      <h1>Your cart is empty...</h1>
+    </div>
+  ) : (
     <div className='cart-page'>
       <div className='cart'>
         {cart.map((cartItem) => {
@@ -176,22 +180,12 @@ function Cart({ products, cart, setCart, setQuantity, id }) {
           );
         })}
       </div>
-
-      {!subtotal ? (
-        <div className='checkout-section'>
-          <h2 className='cartSubtotal'>Your Cart is empty!</h2>
-        </div>
-      ) : (
-        <div className='checkout-section'>
-          <h2 className='cartSubtotal'>Subtotal: ${subtotal.toFixed(2)}</h2>
-          <button
-            className='checkout-btn'
-            onClick={() => navigate('/checkout')}
-          >
-            Proceed to Checkout
-          </button>
-        </div>
-      )}
+      <div className='checkout-section'>
+        <h2 className='cartSubtotal'>Subtotal: ${subtotal.toFixed(2)}</h2>
+        <button className='checkout-btn' onClick={() => navigate('/checkout')}>
+          Proceed to Checkout
+        </button>
+      </div>
     </div>
   );
 }
