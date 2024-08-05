@@ -1,5 +1,5 @@
-const API_URL = `${import.meta.env.VITE_API_URL}`;
-const location = `${import.meta.env.VITE_API_LOCATION}`;
+const API_URL = `https://made-for-you-backend-00a763767e43.herokuapp.com`;
+const location = `api/v1`;
 /************Account Form************/
 
 // Register user method
